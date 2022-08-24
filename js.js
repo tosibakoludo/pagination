@@ -56,7 +56,6 @@ async function renderTable(page = 1) {
     }).forEach(coin => {
         ispis += `<tr><td>${coin.rank}</td><td>${coin.name}</td><td>${Math.round(coin.price)}</td><td>${coin.marketCap}</td><td>${coin.symbol}</td></tr>`
     })
-    console.log(document.getElementById("data"));
     document.getElementById("data").innerHTML = ispis;
 }
 
