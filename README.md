@@ -1,4 +1,4 @@
-# paginacija
+# pagination
 
 Practicing pagination logic, data fetch from Coinranking API, styled with Bootstrap
 
