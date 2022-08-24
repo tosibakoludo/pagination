@@ -1,5 +1,4 @@
 const baseUrl = "https://api.coinranking.com/v2/coins";
-// const proxyUrl = "https://protected-sea-17533.herokuapp.com/";
 const proxyUrl = "https://taki-proxy.herokuapp.com/";
 
 let coinsData = [];
@@ -7,8 +6,6 @@ let currPage = 3;
 let pageSize = 5;
 
 async function getData() {
-    // const res = await fetch(baseUrl, {
-    //     mode: 'no-cors'});
     const res = await fetch(proxyUrl + baseUrl);
     const coins = await res.json();
 
@@ -17,8 +14,6 @@ async function getData() {
 
 async function renderTable(page = 1) {
     await getData();
-
-    console.log(coinsData);
 
     document.getElementById("first").style.display = "block";
     document.getElementById("previous").style.display = "block";
