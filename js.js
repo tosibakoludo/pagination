@@ -18,11 +18,15 @@ async function renderTable(page = 1) {
     document.getElementById("first").style.display = "block";
     document.getElementById("previous").style.display = "block";
     document.getElementById("dotsPrevious").style.display = "block";
+    document.getElementById("previousPreviousPage").style.display = "block";
+    document.getElementById("previousPreviousPage").innerHTML = currPage - 2;
     document.getElementById("previousPage").style.display = "block";
     document.getElementById("previousPage").innerHTML = currPage - 1;
     document.getElementById("currPage").innerHTML = currPage;
     document.getElementById("nextPage").style.display = "block";
     document.getElementById("nextPage").innerHTML = currPage + 1;
+    document.getElementById("nextNextPage").style.display = "block";
+    document.getElementById("nextNextPage").innerHTML = currPage + 2;
     document.getElementById("dotsNext").style.display = "block";
     document.getElementById("next").style.display = "block";
     document.getElementById("last").style.display = "block";
@@ -30,20 +34,30 @@ async function renderTable(page = 1) {
     switch (page) {
         case 1:
             document.getElementById("first").style.display = "none";
+            document.getElementById("previousPreviousPage").style.display = "none";
             document.getElementById("previous").style.display = "none";
             document.getElementById("dotsPrevious").style.display = "none";
             document.getElementById("previousPage").style.display = "none";
             break;
         case 2:
+            document.getElementById("previousPreviousPage").style.display = "none";
             document.getElementById("dotsPrevious").style.display = "none";
+            break;
+        case 3:
+            document.getElementById("dotsPrevious").style.display = "none";
+            break;
+        case Math.ceil(coinsData.length / pageSize) - 2:
+            document.getElementById("dotsNext").style.display = "none";
             break;
         case Math.ceil(coinsData.length / pageSize) - 1:
             document.getElementById("dotsNext").style.display = "none";
+            document.getElementById("nextNextPage").style.display = "none";
             break;
         case Math.ceil(coinsData.length / pageSize):
             document.getElementById("next").style.display = "none";
             document.getElementById("last").style.display = "none";
             document.getElementById("nextPage").style.display = "none";
+            document.getElementById("nextNextPage").style.display = "none";
             document.getElementById("dotsNext").style.display = "none";
             break;
     }
@@ -63,14 +77,31 @@ renderTable(currPage);
 
 document.getElementById("first").addEventListener("click", firstPage);
 document.getElementById("previous").addEventListener("click", previousPage);
+document.getElementById("previousPreviousPage").addEventListener("click", previousPreviousPage);
 document.getElementById("previousPage").addEventListener("click", previousPage);
 document.getElementById("nextPage").addEventListener("click", nextPage);
+document.getElementById("nextNextPage").addEventListener("click", nextNextPage);
 document.getElementById("next").addEventListener("click", nextPage);
 document.getElementById("last").addEventListener("click", lastPage);
 
 function firstPage() {
     currPage = 1;
     renderTable();
+}
+
+function previousPreviousPage() {
+    if (currPage > 2) {
+        currPage--;
+        currPage--;
+        renderTable(currPage);
+    }
+}
+
+function previousPage() {
+    if (currPage > 1) {
+        currPage--;
+        renderTable(currPage);
+    }
 }
 
 function nextPage() {
@@ -80,9 +111,10 @@ function nextPage() {
     }
 }
 
-function previousPage() {
-    if (currPage > 1) {
-        currPage--;
+function nextNextPage() {
+    if (currPage * pageSize < coinsData.length - 1) {
+        currPage++;
+        currPage++;
         renderTable(currPage);
     }
 }
